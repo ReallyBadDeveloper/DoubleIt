@@ -1,0 +1,5 @@
+# Forces people to npm install to prevent weird errors
+*/node_modules
+
+# Makes sure no databases are pushed/pulled
+src/db/*.jdb

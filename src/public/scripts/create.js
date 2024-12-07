@@ -9,3 +9,8 @@ document.querySelector('#create').addEventListener('click',() => {
         })
     })
 })
+
+var imgInput = document.querySelector('#img-select')
+imgInput.addEventListener('change', () => {
+    
+})

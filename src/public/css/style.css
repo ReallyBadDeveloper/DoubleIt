@@ -21,6 +21,7 @@ titlebar {
     display: flex;
     align-items: center;
     padding-left: 15px;
+    box-shadow: 0px 0px 0px 2px black;
 }
 
 titlebar * {
@@ -51,6 +52,7 @@ body {
     border-radius: 10px;
     background-color: var(--lapis-lazuli);
     position: relative;
+    box-shadow: 0px 0px 0px 2px black;
 }
 
 input[type="text"] {
@@ -60,12 +62,61 @@ input[type="text"] {
     border-radius: 5px;
     padding: 10px;
     outline: none;
+    box-shadow: 0px 0px 0px 2px black;
+    width: calc(100% - 20px);
+}
+
+button {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--lapis-lazuli);
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 0px 0px var(--prussian-blue), 0px 0px 0px 2px black, 0px 10px 0px 2px black;
+    transition-duration: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-15px);
+    box-shadow: 0px 15px 0px 0px var(--prussian-blue), 0px 0px 0px 2px black, 0px 15px 0px 2px black;
+}
+
+button:active {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 0px 0px var(--prussian-blue), 0px 0px 0px 2px black, 0px 5px 0px 2px black;
 }
 
 button#create {
     position: absolute;
     bottom: 20px;
     right: 20px;
+    font-weight: bold;
+}
+
+#img-select {
+    display: none;
+}
+
+.select-img {
+    aspect-ratio: 1 / 1;
+    padding: 10px;
+    border-radius: 5px;
+    width: calc(100% - 20px);
+    box-shadow: 0px 0px 0px 2px black;
+    background-color: var(--prussian-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+subtext {
+    font-size: 0.5rem;
+}
+
+.center-middle {
+    text-align: center;
 }
 
 * {

@@ -9,7 +9,7 @@ const port = 80;
 db.init();
 db.load();
 
-app.use(express.static("public"));
+app.use('/public', express.static("public"));
 app.use(bodyparser.json());
 
 app.get("/", (req, res) => {

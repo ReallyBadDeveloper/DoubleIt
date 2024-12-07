@@ -1,13 +1,13 @@
 const utils = require("./utils.js");
-const tdb = require("./db/threadDB.js");
-const bodyparser = require('body-parser')
+const db = require("./db/database.js");
+const bodyparser = require("body-parser");
 const express = require("express");
 const app = express();
 const port = 80;
 
 // DB initialization stuffs
-tdb.init();
-tdb.load();
+db.init();
+db.load();
 
 app.use(express.static("public"));
 app.use(bodyparser.json());
@@ -17,10 +17,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/thread/:threadid", (req, res, next) => {
-  if (tdb.rawDB.length - 1 < req.params.threadid) {
+  if (db.rawDB.threads.length - 1 < req.params.threadid) {
     next();
   } else {
-    res.send(JSON.stringify(tdb.rawDB[req.params.threadid]));
+    res.sendFile(__dirname + '/public/pages/thread.html');
   }
 });
 
@@ -28,18 +28,33 @@ app.get("/create", (req, res) => {
   res.sendFile(__dirname + "/public/pages/threadcreate.html");
 });
 
-app.post("/create/new", (req, res) => {
-  tdb.rawDB.push({
+app.all("/create/new", (req, res) => {
+  db.rawDB.threads.push({
     itemname: req.body.itemname,
     count: 1,
-    active: true
+    likes: 0,
+    active: true,
   });
-  tdb.write()
-  res.status(200)
+  db.write();
+  res.status(200);
 });
 
+// API endpoints for various uses
+
+app.get('/api/v1/thread/:threadid', (req,res,next) => {
+  if (db.rawDB.threads.length - 1 < req.params.threadid) {
+    next();
+  } else {
+    res.send(JSON.stringify(db.rawDB.threads[req.params.threadid]));
+  }
+})
+
+app.get('/api/v1/threads', (req,res,next) => {
+  res.send(JSON.stringify(db.rawDB.threads));
+})
+
 app.use((req, res) => {
-  res.send('<h1 style="text-align: center;">404 Not Found</h1>');
+  res.sendFile(__dirname + '/public/pages/404.html')
 });
 
 app.listen(port, () => {

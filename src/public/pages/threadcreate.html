@@ -3,15 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="shortcut icon" href="../images/icon.ico" type="image/x-icon" />
     <title>Create Thread</title>
   </head>
-
   <body>
-    <h1>Create Thread</h1>
-    <input id="item-name" placeholder="Name of item..."><br>
-    <button id="create">Create!</button>
-
-    <script src="../scripts/create.js"></script>
+    <titlebar>
+      <a href="/"><img src="../images/icon.png" height="50" /></a><pad></pad>
+      <a href="/create">Create</a>
+    </titlebar>
+    <div class="content">
+      <div class="card">
+        <h1>Create Thread</h1>
+        <input id="item-name" placeholder="Name of item..." type="text" minlength="3" maxlength="100"/><br />
+        <button id="create">Create!</button>
+        <script src="../scripts/create.js"></script>
+      </div>
+    </div>  
   </body>
 </html>

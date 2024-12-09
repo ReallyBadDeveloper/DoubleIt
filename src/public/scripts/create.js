@@ -12,6 +12,15 @@ document.querySelector('#create').addEventListener('click',() => {
 
 var imgInput = document.querySelector('#img-select')
 imgInput.addEventListener('change', (event) => {
+    var fileReader = new FileReader()
     document.querySelector('.select-img').replaceChildren()
-    document.querySelector('.select-img').style.background = URL.createObjectURL(imgInput.files[0])
+    fileReader.onload = (e) => {
+        var prevImg = document.createElement('img')
+        prevImg.classList.add('img-prev')
+        document.querySelector('.select-img').appendChild(prevImg)
+        document.querySelector('.img-prev').style.display = 'block'
+        document.querySelector('.img-prev').src = e.target.result
+        document.querySelector('.img-prev').style.borderRadius = '5px'
+    }
+    fileReader.readAsDataURL(imgInput.files[0])
 })

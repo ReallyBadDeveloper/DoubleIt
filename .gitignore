@@ -3,3 +3,6 @@
 
 # Makes sure no databases are pushed/pulled
 src/db/*.jdb
+
+# Tries to prevent merge conflicts
+src/config.json

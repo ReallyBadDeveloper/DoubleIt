@@ -22,6 +22,10 @@ titlebar {
     align-items: center;
     padding-left: 15px;
     box-shadow: 0px 0px 0px 2px black;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1000000000000;
 }
 
 titlebar * {
@@ -35,6 +39,7 @@ pad {
 body {
     background-color: var(--oxford-blue);
     color: white;
+    margin-top: 80px;
 }
 
 .content {
@@ -89,8 +94,8 @@ button:active {
 
 button#create {
     position: absolute;
-    bottom: 20px;
     right: 20px;
+    bottom: 20px;
     font-weight: bold;
 }
 
@@ -100,10 +105,11 @@ button#create {
 
 .select-img {
     aspect-ratio: 1 / 1;
-    padding: 10px;
     border-radius: 5px;
-    width: calc(100% - 20px);
+    width: calc(100%);
     box-shadow: 0px 0px 0px 2px black;
+    background-position: 0% 0%;
+    background-size: cover;
     background-color: var(--prussian-blue);
     display: flex;
     justify-content: center;
@@ -113,6 +119,11 @@ button#create {
 
 subtext {
     font-size: 0.5rem;
+}
+
+.img-prev {
+    width: 100%;
+    height: 100%;
 }
 
 .center-middle {

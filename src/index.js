@@ -1,9 +1,14 @@
 const utils = require("./utils.js");
 const db = require("./db/database.js");
 const bodyparser = require("body-parser");
+const fs = require('fs')
+if (!fs.existsSync('./config.json')) {
+  fs.writeFileSync('./config.json', `{ "port": 80 }`)
+}
+const config = require('./config.json')
 const express = require("express");
 const app = express();
-const port = 80;
+const port = config.port;
 
 // DB initialization stuffs
 db.init();

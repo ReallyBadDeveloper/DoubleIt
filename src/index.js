@@ -10,6 +10,10 @@ const express = require("express");
 const app = express();
 const port = config.port;
 
+if (!fs.existsSync(__dirname + '/public/images/user/thumbnails/0.png')) {
+  fs.writeFileSync(__dirname + '/public/images/user/thumbnails/0.png','')
+}
+
 // DB initialization stuffs
 db.init();
 db.load();

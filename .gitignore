@@ -3,7 +3,7 @@
 
 # Makes sure no databases/images are pushed/pulled
 src/db/*.jdb
-src/public/images/user/*
+src/public/images/user/*.png
 
 # Tries to prevent merge conflicts
 src/config.json

@@ -9,11 +9,24 @@ const config = require('./config.json')
 const express = require("express");
 const app = express();
 const port = config.port;
-const canvas = require('@napi-rs/canvas')
 
 // DB initialization stuffs
 db.init();
 db.load();
+
+
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + 'do this later') // TODO: implement
+  },
+  filename: function (req, file, cb) {
+    db.load()
+    const uniqueSuffix = db.rawDB.threads.length
+    cb(null, uniqueSuffix + '.png')
+  }
+})
+const upload = multer({ dest: __dirname + '/public/images/user/thumbnails'})
 
 app.use('/public', express.static("public"));
 app.use(bodyparser.json());
@@ -34,13 +47,9 @@ app.get("/create", (req, res) => {
   res.sendFile(__dirname + "/public/pages/threadcreate.html");
 });
 
-app.all("/create/new", (req, res) => {
-  var imgCanvas = canvas.createCanvas(512,512)
-  var ctx = imgCanvas.getContext('2d')
-  var img = canvas.loadImage(req.body.itemimage);
-  ctx.drawImage(img,0,0,512,512)
+app.all("/create/new", upload.single('thumbnail'), (req, res) => {
   db.load()
-  fs.writeFileSync('./public/images/user/thumbnails/' + db.rawDB.threads.length + '.png', imgCanvas.encode('png'))
+  fs.writeFileSync('./public/images/user/thumbnails/' + db.rawDB.threads.length + '.png', req.file)
   db.rawDB.threads.push({
     itemname: req.body.itemname,
     image: `/public/images/user/thumbnails/${db.rawDB.threads.length}.png`,
@@ -54,7 +63,7 @@ app.all("/create/new", (req, res) => {
 
 // API endpoints for various uses
 
-app.get('/api/v1/thread/:threadid', (req,res,next) => {
+app.get('/api/v1/thread/:threadid', (req, res, next) => {
   if (db.rawDB.threads.length - 1 < req.params.threadid) {
     next();
   } else {
@@ -62,7 +71,7 @@ app.get('/api/v1/thread/:threadid', (req,res,next) => {
   }
 })
 
-app.get('/api/v1/threads', (req,res,next) => {
+app.get('/api/v1/threads', (req, res, next) => {
   res.send(JSON.stringify(db.rawDB.threads));
 })
 

@@ -1,22 +1,3 @@
-var dataURI;
-
-document.querySelector('#create').addEventListener('click',() => {
-    if (dataURI == null || document.querySelector('#item-name').value == '') {
-        console.error('Could not create thread because some form elements are blank.')
-        return;
-    }
-    fetch(window.location.href + '/new', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            itemname: document.querySelector('#item-name').value,
-            itemimage: dataURI
-        })
-    })
-})
-
 var imgInput = document.querySelector('#img-select')
 imgInput.addEventListener('change', (event) => {
     var fileReader = new FileReader()

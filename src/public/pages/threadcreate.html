@@ -20,12 +20,15 @@
     <div class="content">
       <div class="card">
         <h1>Create Thread</h1>
+        <form action="/create/new" method="post" enctype="multipart/form-data">
         <input
           id="item-name"
           placeholder="Name of item..."
           type="text"
+          name="name"
           minlength="3"
           maxlength="100"
+          required
         /><br />
         <pad></pad>
         <label for="img-select" class="select-img">
@@ -51,8 +54,9 @@
               <p>Select Cover Image<br><subtext>2.5MB max, 1:1 aspect ratio</subtext></p>
             </div>
           </label
-        ><input type="file" id="img-select" accept="image/*" />
-        <button id="create">Create!</button>
+        ><input name="thumbnail" type="file" id="img-select" accept="image/png" required />
+        <input type="submit" id="create" value="Create!">
+        </form>        
         <script src="./public/scripts/create.js"></script>
       </div>
     </div>

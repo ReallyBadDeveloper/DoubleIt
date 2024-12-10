@@ -9,6 +9,7 @@ const config = require('./config.json')
 const express = require("express");
 const app = express();
 const port = config.port;
+const canvas = require('@napi-rs/canvas')
 
 // DB initialization stuffs
 db.init();
@@ -34,8 +35,15 @@ app.get("/create", (req, res) => {
 });
 
 app.all("/create/new", (req, res) => {
+  var imgCanvas = canvas.createCanvas(512,512)
+  var ctx = imgCanvas.getContext('2d')
+  var img = canvas.loadImage(req.body.itemimage);
+  ctx.drawImage(img,0,0,512,512)
+  db.load()
+  fs.writeFileSync('./public/images/user/thumbnails/' + db.rawDB.threads.length + '.png', imgCanvas.encode('png'))
   db.rawDB.threads.push({
     itemname: req.body.itemname,
+    image: `/public/images/user/thumbnails/${db.rawDB.threads.length}.png`,
     count: 1,
     likes: 0,
     active: true,

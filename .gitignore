@@ -1,8 +1,9 @@
 # Forces people to npm install to prevent weird errors
 */node_modules
 
-# Makes sure no databases are pushed/pulled
+# Makes sure no databases/images are pushed/pulled
 src/db/*.jdb
+src/public/images/user/*
 
 # Tries to prevent merge conflicts
 src/config.json

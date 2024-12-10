@@ -14,11 +14,10 @@ const port = config.port;
 db.init();
 db.load();
 
-
 const multer = require('multer')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + 'do this later') // TODO: implement
+    cb(null, __dirname + '/public/images/user/thumbnails')
   },
   filename: function (req, file, cb) {
     db.load()
@@ -26,7 +25,7 @@ const storage = multer.diskStorage({
     cb(null, uniqueSuffix + '.png')
   }
 })
-const upload = multer({ dest: __dirname + '/public/images/user/thumbnails'})
+const upload = multer({ storage: storage })
 
 app.use('/public', express.static("public"));
 app.use(bodyparser.json());
@@ -49,7 +48,6 @@ app.get("/create", (req, res) => {
 
 app.all("/create/new", upload.single('thumbnail'), (req, res) => {
   db.load()
-  fs.writeFileSync('./public/images/user/thumbnails/' + db.rawDB.threads.length + '.png', req.file)
   db.rawDB.threads.push({
     itemname: req.body.itemname,
     image: `/public/images/user/thumbnails/${db.rawDB.threads.length}.png`,
@@ -58,7 +56,7 @@ app.all("/create/new", upload.single('thumbnail'), (req, res) => {
     active: true,
   });
   db.write();
-  res.status(200);
+  res.redirect('/thread/' + (db.rawDB.threads.length-1));
 });
 
 // API endpoints for various uses
@@ -67,7 +65,7 @@ app.get('/api/v1/thread/:threadid', (req, res, next) => {
   if (db.rawDB.threads.length - 1 < req.params.threadid) {
     next();
   } else {
-    res.send(JSON.stringify(db.rawDB.threads[req.params.threadid]));
+    res.json(db.rawDB.threads[req.params.threadid]);
   }
 })
 

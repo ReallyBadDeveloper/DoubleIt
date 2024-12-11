@@ -66,7 +66,7 @@ app.all("/create/new", upload.single('thumbnail'), (req, res) => {
 // API endpoints for various uses
 
 app.get('/api/v1/thread/:threadid', (req, res, next) => {
-  if (db.rawDB.threads.length - 1 < req.params.threadid) {
+  if (db.rawDB.threads[req.params.threadid] == null) {
     next();
   } else {
     res.json(db.rawDB.threads[req.params.threadid]);

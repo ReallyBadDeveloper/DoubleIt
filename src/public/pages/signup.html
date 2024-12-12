@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <link rel="shortcut icon" href="/public/images/icon.ico" type="image/x-icon">
+    <title>Sign Up - DoubleIt</title>
+  </head>
+  <body>
+    <titlebar>
+      <a href="/"><img src="/public/images/icon.png" height="50" /></a><pad></pad>
+      <a href="/create">Create</a>
+      <pad></pad>
+      <a href="/signup">Sign Up</a>
+    </titlebar>
+
+    <div class="content">
+      <div class="card">
+        <h1>Sign Up</h1>
+        <form action="/account/create" method="post" enctype="multipart/form-data">
+          <input
+            id="username"
+            placeholder="Username"
+            type="text"
+            name="username"
+            required
+          /><br><br>
+          <input
+            id="password"
+            placeholder="Password"
+            type="password"
+            name="username"
+            required
+          />
+          <a href="/login">Already have an account?</a>
+          <input type="submit" id="create" value="Sign Up">
+          </form>
+      </div>
+    </div>
+
+    <script src="./public/scripts/global.js"></script>
+  </body>
+</html>

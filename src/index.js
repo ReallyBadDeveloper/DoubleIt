@@ -15,11 +15,11 @@ if (!fs.existsSync(__dirname + '/public/images/user/thumbnails/0.png')) {
 }
 
 // DB initialization stuffs
-db.init();
+db.init(true);
 db.load();
 
 const multer = require('multer')
-const storage = multer.diskStorage({
+const thumbnailStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/public/images/user/thumbnails')
   },
@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
     cb(null, uniqueSuffix + '.png')
   }
 })
-const upload = multer({ storage: storage })
+const thumbnailUpload = multer({ storage: thumbnailStorage })
 
 app.use('/public', express.static("public"));
 app.use(bodyparser.json());
@@ -50,7 +50,11 @@ app.get("/create", (req, res) => {
   res.sendFile(__dirname + "/public/pages/threadcreate.html");
 });
 
-app.all("/create/new", upload.single('thumbnail'), (req, res) => {
+app.get("/signup", (req,res) => {
+  res.sendFile(__dirname + "/public/pages/signup.html")
+})
+
+app.all("/create/new", thumbnailUpload.single('thumbnail'), (req, res) => {
   db.load()
   db.rawDB.threads.push({
     itemname: req.body.itemname,

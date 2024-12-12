@@ -69,6 +69,7 @@ app.get('/api/v1/thread/:threadid', (req, res, next) => {
   if (db.rawDB.threads[req.params.threadid] == null) {
     next();
   } else {
+    db.load()
     res.json(db.rawDB.threads[req.params.threadid]);
   }
 })

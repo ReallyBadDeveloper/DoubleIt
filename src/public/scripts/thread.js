@@ -12,6 +12,7 @@ async function getThreadData() {
         var prevImg = document.querySelector('.img-prev')
         prevImg.src = json.image
         prevImg.style.borderRadius = '5px'
+        document.querySelector('title').innerHTML = `${json.itemname} - DoubleIt`
     } catch (error) {
         console.error(error.message);
         return;

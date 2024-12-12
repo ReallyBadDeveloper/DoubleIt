@@ -100,6 +100,13 @@ button#create, input[type="submit"]#create {
     font-weight: bold;
 }
 
+button.minimal {
+    background-color: rgba(0,0,0,0) !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    transform: none !important;
+}
+
 #img-select {
     display: none;
 }

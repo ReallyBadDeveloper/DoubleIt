@@ -68,6 +68,10 @@ app.all("/create/new", thumbnailUpload.single('thumbnail'), (req, res) => {
 });
 
 app.post('/account/create', (req,res) => {
+  if (req.body.username.match(/[^a-zA-Z0-9_.]/gm)) {
+    res.status(405)
+    return;
+  }
   db.load()
   db.users.push({
     username: req.body.username,

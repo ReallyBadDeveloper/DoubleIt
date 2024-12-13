@@ -67,6 +67,19 @@ app.all("/create/new", thumbnailUpload.single('thumbnail'), (req, res) => {
   res.redirect('/thread/' + (db.rawDB.threads.length-1));
 });
 
+app.post('/account/create', (req,res) => {
+  db.load()
+  db.users.push({
+    username: req.body.username,
+    password: req.body.password,
+    likedItems: '',
+    badges: [],
+    created: new Date().toTimeString(),
+    claimedItems: ''
+  })
+  res.redirect('/')
+})
+
 // API endpoints for various uses
 
 app.get('/api/v1/thread/:threadid', (req, res, next) => {

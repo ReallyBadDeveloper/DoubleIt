@@ -32,6 +32,10 @@ titlebar * {
     color: white !important;
 }
 
+a, a:visited {
+    color: white !important;
+}
+
 pad {
     padding: 10px;
 }

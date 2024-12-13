@@ -62,7 +62,7 @@ app.all("/create/new", thumbnailUpload.single('thumbnail'), (req, res) => {
     count: 1,
     likes: 0,
     active: true,
-  });
+  })
   db.write();
   res.redirect('/thread/' + (db.rawDB.threads.length-1));
 });
